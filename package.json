@@ -1,0 +1,39 @@
+{
+  "name": "nodejs-auth-service",
+  "version": "1.0.0",
+  "description": "Authentication and authorization service created as part of Kennedy Florentino's portfolio.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "test": "test",
+    "start:dev": "npx nodemon",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennedy-florentino/nodejs-auth-service.git"
+  },
+  "keywords": [
+    "Authentication",
+    "Authorization",
+    "JWT"
+  ],
+  "author": "Kennedy Florentino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennedy-florentino/nodejs-auth-service/issues"
+  },
+  "homepage": "https://github.com/kennedy-florentino/nodejs-auth-service#readme",
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
+    "eslint": "^8.42.0",
+    "nodemon": "^2.0.22",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
+  }
+}
