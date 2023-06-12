@@ -6,6 +6,8 @@ import { SignInService } from "../services/sign-in";
 import { SignUpRequest } from "../requests/sign-up";
 import { SignUpResponse } from "../responses/create-user";
 import { SignUpService } from "../services/sign-up";
+import { RefreshTokenRequest } from "../requests/refresh-token";
+import { RefreshTokenService } from "../services/refresh-token";
 
 export class AuthController {
   public static signUp: RequestHandler = async (
@@ -41,8 +43,36 @@ export class AuthController {
     if (invalidAttributes.length > 0)
       throw new BadRequestError({ message: "Invalid user or password" });
 
-    const acessToken = await SignInService.signIn({ email, password });
+    const tokens = await SignInService.signIn({ email, password });
 
-    return res.status(200).json({ acessToken });
+    return res.status(200).json(tokens);
+  };
+
+  public static refreshToken: RequestHandler = async (
+    req: Request,
+    res: Response
+  ) => {
+    const { accessToken, refreshToken } = req.body;
+    const refreshTokenRequest = new RefreshTokenRequest({
+      accessToken,
+      refreshToken,
+    });
+    const invalidAttributes = await validate(refreshTokenRequest);
+
+    if (invalidAttributes.length > 0)
+      throw new BadRequestError({
+        message: "Invalid token",
+        metadata: invalidAttributes.map((e) => ({
+          property: e.property,
+          constraints: e.constraints,
+        })),
+      });
+
+    const tokens = RefreshTokenService.getTokens({
+      accessToken,
+      refreshToken,
+    });
+
+    res.status(200).json(tokens);
   };
 }

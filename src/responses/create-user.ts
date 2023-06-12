@@ -1,3 +1,5 @@
+import { UserRole } from "../entities/user";
+
 export class SignUpResponse {
   public id: string;
   public name: string;
@@ -8,6 +10,7 @@ export class SignUpResponse {
     email,
   }: {
     id: string;
+    role: UserRole;
     name: string;
     email: string;
   }) {

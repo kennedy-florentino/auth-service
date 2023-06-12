@@ -1,5 +1,5 @@
 import { hash } from "bcrypt";
-import { UserEntity } from "../entities/user";
+import { UserEntity, UserRole } from "../entities/user";
 import { BadRequestError } from "../helpers/api-errors";
 import { userRepository } from "../repositories/user";
 import { SignUpRequest } from "../requests/sign-up";
@@ -15,6 +15,7 @@ export class SignUpService {
     const hashPassword = await hash(password, 8);
 
     return await userRepository.save({
+      role: UserRole.MEMBER,
       name,
       email,
       password: hashPassword,
