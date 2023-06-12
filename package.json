@@ -6,6 +6,8 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
+    "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
     "test": "test",
     "start:dev": "npx nodemon",
     "build": "rimraf ./dist && tsc",
@@ -33,6 +35,7 @@
     "@types/node": "^20.2.5",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
+    "class-validator": "^0.14.0",
     "eslint": "^8.42.0",
     "nodemon": "^2.0.22",
     "rimraf": "^5.0.1",
