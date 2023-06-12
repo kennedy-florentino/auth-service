@@ -1,9 +1,10 @@
 import { Router } from "express";
 import "express-async-errors";
-import { UserController } from "./controllers/user";
+import { AuthController } from "./controllers/auth";
 
 const routes = Router();
 
-routes.post("/user", UserController.create);
+routes.post("/auth/sign-up", AuthController.signUp);
+routes.post("/auth/sign-in", AuthController.signIn);
 
 export default routes;

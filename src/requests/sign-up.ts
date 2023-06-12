@@ -1,6 +1,6 @@
 import { IsEmail, MaxLength, MinLength } from "class-validator";
 
-export class CreateUserRequest {
+export class SignUpRequest {
   @MinLength(3)
   @MaxLength(100)
   public name: string;

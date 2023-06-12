@@ -1,4 +1,4 @@
-export class CreateUserResponse {
+export class SignUpResponse {
   public id: string;
   public name: string;
   public email: string;

@@ -1,13 +1,11 @@
 import { hash } from "bcrypt";
+import { UserEntity } from "../entities/user";
 import { BadRequestError } from "../helpers/api-errors";
 import { userRepository } from "../repositories/user";
-import { CreateUserRequest } from "../requests/user";
-import { CreateUserResponse } from "../responses/create-user";
+import { SignUpRequest } from "../requests/sign-up";
 
-export class UserService {
-  public static save = async (
-    user: CreateUserRequest
-  ): Promise<CreateUserResponse> => {
+export class SignUpService {
+  public static save = async (user: SignUpRequest): Promise<UserEntity> => {
     const { name, email, password } = user;
     const userExists = await userRepository.findOneBy({ email });
 
@@ -16,12 +14,10 @@ export class UserService {
 
     const hashPassword = await hash(password, 8);
 
-    const newUser = await userRepository.save({
+    return await userRepository.save({
       name,
       email,
       password: hashPassword,
     });
-
-    return new CreateUserResponse({ ...newUser });
   };
 }
