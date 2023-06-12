@@ -8,9 +8,9 @@
     "lint-and-fix": "eslint . --ext .ts --fix",
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
     "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
-    "test": "test",
+    "test": "jest --coverage",
     "start:dev": "npx nodemon",
-    "build": "rimraf ./dist && tsc",
+    "build": "rimraf ./dist && tsc --project tsconfig.build.json",
     "start": "npm run build && node dist/index.js"
   },
   "repository": {
@@ -31,14 +31,19 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.2.5",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
     "class-validator": "^0.14.0",
     "eslint": "^8.42.0",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22",
     "rimraf": "^5.0.1",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   },

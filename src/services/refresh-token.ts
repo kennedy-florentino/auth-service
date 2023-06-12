@@ -58,7 +58,7 @@ export class RefreshTokenService {
         expiresIn: refreshTokenExpiration,
       });
 
-      return { newAccessToken, newRefreshToken };
+      return { accessToken: newAccessToken, refreshToken: newRefreshToken };
     } catch (error) {
       throw new BadRequestError({ message: "Invalid token" });
     }
