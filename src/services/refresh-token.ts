@@ -3,6 +3,18 @@ import { authConfig } from "../config/auth";
 import { UserRole } from "../entities/user";
 import { BadRequestError } from "../helpers/api-errors";
 
+interface AccessTokenPayload {
+  sub: string;
+  role: UserRole;
+  email: string;
+  iss: string;
+}
+
+interface RefreshTokenPayload {
+  sub: string;
+  iss: string;
+}
+
 export class RefreshTokenService {
   public static getTokens = ({
     accessToken,
@@ -20,17 +32,12 @@ export class RefreshTokenService {
         issuer,
       } = authConfig;
 
-      const accessTokenPayload = decode(accessToken) as {
-        sub: string;
-        role: UserRole;
-        email: string;
-        iss: string;
-      };
+      const accessTokenPayload = decode(accessToken) as AccessTokenPayload;
 
       const refreshTokenPayload = verify(
         refreshToken,
         refreshTokenSecret as string
-      ) as { sub: string; iss: string };
+      ) as RefreshTokenPayload;
 
       const newAccessToken = sign(
         {
