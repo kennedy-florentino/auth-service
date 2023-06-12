@@ -39,13 +39,7 @@ export class AuthController {
     const invalidAttributes = await validate(signInRequest);
 
     if (invalidAttributes.length > 0)
-      throw new BadRequestError({
-        message: "Invalid user attributes",
-        metadata: invalidAttributes.map((e) => ({
-          property: e.property,
-          constraints: e.constraints,
-        })),
-      });
+      throw new BadRequestError({ message: "Invalid user or password" });
 
     const acessToken = await SignInService.signIn({ email, password });
 
