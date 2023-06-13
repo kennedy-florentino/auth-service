@@ -65,22 +65,12 @@ describe("AuthController", () => {
     });
 
     describe("Given invalid sign-in properties", () => {
-      let statusCode: number, body: unknown;
-
-      (async () => {
-        const signInResponse = await supertest(app)
+      it('Should return message "Invalid user or password" and status code 400', async () => {
+        const { statusCode, body } = await supertest(app)
           .post("/auth/sign-in")
           .send({});
-        statusCode = signInResponse.statusCode;
-        body = signInResponse.body;
-      })();
-
-      it("Should return status code 400", () => {
-        expect(statusCode).toBe(400);
-      });
-
-      it('Should return message "Invalid user or password"', () => {
         expect(body).toEqual({ message: "Invalid user or password" });
+        expect(statusCode).toBe(400);
       });
     });
   });
