@@ -3,13 +3,18 @@ import { AppDataSource } from "./data-source";
 import { errorMiddleware } from "./middlewares/error";
 import routes from "./routes";
 
-AppDataSource.initialize().then(() => {
-  console.log("Data source initialized successfully!");
+export const initializeServer = () => {
   const app = express();
   app.use(express.json());
   app.use(routes);
   app.use(errorMiddleware);
-  return app.listen(process.env.PORT, () =>
+  app.listen(process.env.PORT, () =>
     console.log(`App listening on port ${process.env.PORT}!`)
   );
+  return app;
+};
+
+AppDataSource.initialize().then(() => {
+  console.log("Data source initialized successfully!");
+  initializeServer();
 });

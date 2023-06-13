@@ -1,8 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
-  "ts-node": {
-    "transpileOnly": true,
-    "files": true
-  }
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
 }
