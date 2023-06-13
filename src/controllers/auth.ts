@@ -29,7 +29,7 @@ export class AuthController {
 
     const newUser = await SignUpService.save(signUpRequest);
 
-    res.status(201).json(new SignUpResponse({ ...newUser }));
+    return res.status(201).json(new SignUpResponse({ ...newUser }));
   };
 
   public static signIn: RequestHandler = async (
@@ -73,6 +73,6 @@ export class AuthController {
       refreshToken,
     });
 
-    res.status(200).json(tokens);
+    return res.status(200).json(tokens);
   };
 }
