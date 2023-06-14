@@ -11,7 +11,7 @@ describe("SignUpService", () => {
     role: UserRole.MEMBER,
     name: "Kennedy",
     email: "kennedyf2k@gmail.com",
-    password: hashSync("12345678", 9),
+    password: hashSync("12345678", 8),
   };
 
   jest.spyOn(AppDataSource, "initialize").mockImplementation();
@@ -20,7 +20,7 @@ describe("SignUpService", () => {
     .spyOn(userRepository, "findOneBy")
     .mockReturnValue(Promise.resolve(null));
 
-  describe("Save", () => {
+  describe("Save method", () => {
     describe("Given SignUpRequest", () => {
       it("Should return UserEntity", async () => {
         await AppDataSource.initialize();
