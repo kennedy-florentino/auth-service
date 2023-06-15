@@ -10,8 +10,8 @@
     "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
     "test": "jest --coverage",
     "start:dev": "npx nodemon",
-    "build:docker": "docker build --tag nodejs-express-auth-service --file Dockerfile .",
-    "start:docker": "docker compose up",
+    "docker:build": "docker build --tag nodejs-express-auth-service --file Dockerfile .",
+    "docker:start": "docker compose up",
     "build": "rimraf ./dist && tsc --project tsconfig.build.json",
     "start": "npm run build && node dist/index.js"
   },

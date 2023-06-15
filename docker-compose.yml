@@ -1,4 +1,9 @@
 version: "3"
+
+volumes:
+  nodejs-express-auth-service:
+  postgres-data:
+
 services:
   web:
     build: .
@@ -6,16 +11,12 @@ services:
       - 3000:3000
     env_file:
       - .env
-    # environment:
-    #   - NODE_ENV=dev
-    #   - PORT=3000
-    #   - DB_HOST=postgres
-    #   - DB_PORT=5432
-    #   - DB_USER=postgres
-    #   - DB_PASS=postgres
-    #   - DB_NAME=postgres
-    #   - JWT_ACCESS_TOKEN_SECRET=VPanLxjxiN0qj8lz_w60Jxy0h1q7v1EFU7Y9aYqnClw
-    #   - JWT_REFRESH_TOKEN_SECRET=UiTSAbXted4sy7GCICpyPlQxigu7jFsRhPR5HEGsEro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "npm run migration:run && node dist/index.js"
+
   postgres:
     image: postgres
     container_name: postgres
@@ -24,4 +25,10 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - $HOME/docker/volumes/postgres:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -p 5432 -U postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 5s
