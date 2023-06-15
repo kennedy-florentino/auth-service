@@ -1,4 +1,4 @@
-import { decode, sign, verify } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import { authConfig } from "../config/auth";
 import { UserRole } from "../entities/user";
 import { BadRequestError } from "../helpers/api-errors";
@@ -30,7 +30,13 @@ export class RefreshTokenService {
         issuer,
       } = authConfig;
 
-      const accessTokenPayload = decode(accessToken) as AccessTokenPayload;
+      const accessTokenPayload = verify(
+        accessToken,
+        accessTokenSecret as string,
+        {
+          ignoreExpiration: true,
+        }
+      ) as AccessTokenPayload;
 
       const refreshTokenPayload = verify(
         refreshToken,
