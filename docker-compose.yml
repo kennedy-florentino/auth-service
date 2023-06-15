@@ -1,5 +1,21 @@
-version: '3'
+version: "3"
 services:
+  web:
+    build: .
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    # environment:
+    #   - NODE_ENV=dev
+    #   - PORT=3000
+    #   - DB_HOST=postgres
+    #   - DB_PORT=5432
+    #   - DB_USER=postgres
+    #   - DB_PASS=postgres
+    #   - DB_NAME=postgres
+    #   - JWT_ACCESS_TOKEN_SECRET=VPanLxjxiN0qj8lz_w60Jxy0h1q7v1EFU7Y9aYqnClw
+    #   - JWT_REFRESH_TOKEN_SECRET=UiTSAbXted4sy7GCICpyPlQxigu7jFsRhPR5HEGsEro
   postgres:
     image: postgres
     container_name: postgres
