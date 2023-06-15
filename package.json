@@ -11,9 +11,9 @@
     "test": "jest --coverage",
     "start:dev": "npx nodemon",
     "docker:build": "docker build --tag nodejs-express-auth-service --file Dockerfile .",
-    "docker:start": "docker compose up",
+    "docker:start": "cp .env.example.docker .env && docker compose up",
     "build": "rimraf ./dist && tsc --project tsconfig.build.json",
-    "start": "npm run build && node dist/index.js"
+    "start": "cp .env.example .env && npm run build && node dist/index.js"
   },
   "repository": {
     "type": "git",

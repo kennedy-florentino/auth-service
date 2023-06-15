@@ -6,6 +6,7 @@ volumes:
 
 services:
   web:
+    container_name: nodejs-express-auth-service
     build: .
     ports:
       - 3000:3000
@@ -19,9 +20,10 @@ services:
 
   postgres:
     image: postgres
-    container_name: postgres
+    container_name: ${DB_HOST}
     environment:
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASS}
     ports:
       - 5432:5432
     volumes:

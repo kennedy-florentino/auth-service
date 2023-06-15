@@ -4,7 +4,6 @@ COPY tsconfig.build.json /app/
 COPY src /app/src/
 COPY package.json /app/
 COPY package-lock.json /app/
-COPY wait-for-it.sh /app/
 WORKDIR /app
 RUN npm install
 RUN npm run build
