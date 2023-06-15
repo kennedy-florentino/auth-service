@@ -2,6 +2,7 @@ import { decode, sign, verify } from "jsonwebtoken";
 import { authConfig } from "../config/auth";
 import { UserRole } from "../entities/user";
 import { BadRequestError } from "../helpers/api-errors";
+import { RefreshTokenRequest } from "../requests/refresh-token";
 
 interface AccessTokenPayload {
   sub: string;
@@ -19,10 +20,7 @@ export class RefreshTokenService {
   public static getTokens = ({
     accessToken,
     refreshToken,
-  }: {
-    accessToken: string;
-    refreshToken: string;
-  }) => {
+  }: RefreshTokenRequest) => {
     try {
       const {
         accessTokenSecret,
