@@ -4,4 +4,6 @@ module.exports = {
   testEnvironment: "node",
   verbose: true,
   forceExit: true,
+  testPathIgnorePatterns: ["/node_modules/", "/src/__tests__/__mocks__/"],
+  clearMocks: true,
 };

@@ -1,42 +1,35 @@
-import { hashSync } from "bcrypt";
 import { AppDataSource } from "../../data-source";
-import { UserEntity, UserRole } from "../../entities/user";
 import { BadRequestError } from "../../helpers/api-errors";
 import { userRepository } from "../../repositories/user";
 import { SignUpService } from "../../services/sign-up";
+import { createUserMock } from "../__mocks__/user.mock";
 
 describe("SignUpService", () => {
-  const user: UserEntity = {
-    id: "416f3a6d-0910-43a6-925e-1f588d320e54",
-    role: UserRole.MEMBER,
-    name: "Kennedy",
-    email: "kennedyf2k@gmail.com",
-    password: hashSync("12345678", 8),
-  };
-
+  const user = createUserMock();
   jest.spyOn(AppDataSource, "initialize").mockImplementation();
   jest.spyOn(userRepository, "save").mockReturnValue(Promise.resolve(user));
-  jest
-    .spyOn(userRepository, "findOneBy")
-    .mockReturnValue(Promise.resolve(null));
+  const spyFindOneBy = jest.spyOn(userRepository, "findOneBy");
 
   describe("Save method", () => {
     describe("Given SignUpRequest", () => {
       it("Should return UserEntity", async () => {
+        spyFindOneBy.mockReturnValue(Promise.resolve(null));
         await AppDataSource.initialize();
-        expect(await SignUpService.save({ ...user })).toBe(user);
+        expect(
+          await SignUpService.save({
+            email: user.email,
+            name: user.name,
+            password: user.password,
+          })
+        ).toBe(user);
       });
     });
 
     describe("Given SignUpRequest with existing email", () => {
       it("Should throw BadRequestError", async () => {
-        jest
-          .spyOn(userRepository, "findOneBy")
-          .mockReturnValue(Promise.resolve(user));
+        spyFindOneBy.mockReturnValue(Promise.resolve(user));
 
-        await expect(SignUpService.save({ ...user })).rejects.toThrow(
-          BadRequestError
-        );
+        await expect(SignUpService.save(user)).rejects.toThrow(BadRequestError);
       });
     });
   });
