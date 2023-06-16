@@ -39,7 +39,7 @@ Antes de começar, certifique-se de ter o seguinte instalado em sua máquina:
 
 - [GIT](https://git-scm.com/downloads)
 - [Postman](https://www.postman.com/)
-- [Docker](https://docs.docker.com/get-docker/) ou [Node.js](https://nodejs.org/en/) versão 16
+- [Docker](https://docs.docker.com/get-docker/) ou [Node.js](https://nodejs.org/en/) versão 16 e [PostgreSQL](https://www.postgresql.org/)
 
 ## Instalação
 
@@ -56,7 +56,7 @@ $ cd nodejs-express-auth-service
 $ docker build --tag nodejs-express-auth-service --file Dockerfile .
 
 # Copie o arquivo de exemplo de variáveis de ambiente
-$ cp .env.example.docker .env
+$ cp .env.docker .env
 
 # Inicie o contêiner Docker
 $ docker compose up
@@ -67,6 +67,9 @@ $ docker compose up
 
 ### NodeJS
 
+Antes de executar o serviço de autenticação diretamente com Node.js, certifique-se de ter instalado o PostgreSQL e configurado as variáveis de ambiente no arquivo .env.node. Além disso, é necessário executar as migrações do banco de dados antes de iniciar o servidor.
+
+Siga as etapas abaixo para iniciar o serviço:
 
 ```bash
 # Clone este repositório
@@ -77,6 +80,9 @@ $ cd nodejs-express-auth-service
 
 # Instale as dependências
 $ npm install
+
+# Execute as migrações do banco de dados
+$ npm run migration:run
 
 # Inicie o servidor
 $ npm start
